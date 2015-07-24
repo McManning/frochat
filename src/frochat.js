@@ -32,16 +32,39 @@ define([
 
         //wrap(this.element);
 
+        this.onKeyDown = this.onKeyDown.bind(this);
         this.onMouseDown = this.onMouseDown.bind(this);
         this.onMouseUp = this.onMouseUp.bind(this);
         this.onMouseMove = this.onMouseMove.bind(this);
 
+        this.el.querySelector('input').addEventListener('keydown', this.onKeyDown);
         this.el.addEventListener('mousedown', this.onMouseDown);
         this.el.addEventListener('mouseup', this.onMouseUp);
     }
 
+    Plugin.prototype.append = function(message) {
+        var el = document.createElement('P'),
+            output = this.el.querySelector('.output-container');
+
+        el.innerHTML = message;
+
+        // Append and scroll the div to the bottom
+        output.appendChild(el);
+        output.scrollTop = output.scrollHeight;
+    };
+
+    Plugin.prototype.onKeyDown = function(evt) {
+        evt = evt || window.event;
+
+        if (evt.keyCode === 13) {
+            this.append(evt.target.value);
+            evt.target.value = '';
+        }
+    };
+
     Plugin.prototype.onMouseDown = function(evt) {
         evt = evt || window.event;
+
         var x = evt.clientX,
             y = evt.clientY,
             top = this.el.style.top.replace('px', ''),
@@ -58,8 +81,8 @@ define([
     };
 
     Plugin.prototype.onMouseUp = function() {
-
         var container = this.el.parentNode;
+
         container.style.cursor = 'default';
 
         // Remove move listener
@@ -67,23 +90,20 @@ define([
     };
 
     Plugin.prototype.onMouseMove = function(evt) {
-        console.log('mousemove');
-
         evt = evt || window.event;
-        var x = evt.clientX - this.dx,
-            y = evt.clientY - this.dy;
 
-        var container = this.el.parentNode;
-
-        var eWi = parseInt(this.el.style.width),
-            eHe = parseInt(this.el.style.height),
-            cWi = parseInt(container.style.width),
-            cHe = parseInt(container.style.height);
+        var container = this.el.parentNode,
+            x = evt.clientX - this.dx,
+            y = evt.clientY - this.dy,
+            ew = parseInt(this.el.style.width),
+            eh = parseInt(this.el.style.height),
+            cw = parseInt(container.style.width),
+            ch = parseInt(container.style.height);
 
         if (x < 0) x = 0;
         if (y < 0) y = 0;
-        if (x + eWi > cWi) x = cWi - eWi;
-        if (y + eHe > cHe) y = cHe - eHe;
+        if (x + ew > cw) x = cw - ew;
+        if (y + eh > ch) y = ch - eh;
 
         this.el.style.left = x + 'px';
         this.el.style.top = y + 'px';
