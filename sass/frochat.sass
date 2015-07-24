@@ -1,0 +1,110 @@
+
+.frochat
+    position: fixed
+    bottom: 0
+    right: 0
+    width: 400px
+    height: 200px
+    padding: 0
+    background-color: transparent
+    background-image: none
+    border: none
+    z-index: 2
+    opacity: 1
+
+    a
+        color: #8B6FBD
+        text-decoration: none
+        &:hover, &:active
+            text-decoration: none
+
+    .input-container table
+        width: 100%
+        color: white
+
+    .background
+        position: absolute
+        width: 100%
+        height: 100%
+        background: black
+        top: 20px
+        // http://stackoverflow.com/questions/4981705/css-create-a-transparent-div
+        opacity: 0.8
+        filter: alpha(opacity = 0.8)
+        filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.8)
+    .header
+        text-align: center
+        margin: 0
+        height: 20px
+        color: black
+        font-weight: bold
+        // position: absolute;
+        background-color: #3A3A3A
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3A3A3A), to(#292929))
+        background-image: -webkit-linear-gradient(#3A3A3A, #292929)
+        background-image: -moz-linear-gradient(top, #3A3A3A, #292929)
+        background-image: -o-linear-gradient(#3A3A3A, #292929)
+        background-image: linear-gradient(#3A3A3A, #292929)
+        background-repeat: no-repeat
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3A3A3A', endColorstr='#ff292929', GradientType=0)
+        border: 1px solid #0C0D0E
+        border-bottom-width: 0
+        cursor: move !important
+        border-radius: 3px 3px 0 0
+
+    input
+        margin: 0
+        outline: none
+        color: white
+        height: 21px
+        box-shadow: rgba(255, 255, 255, 0.1) 0 1px 0, rgba(0, 0, 0, 0.8) 0 1px 7px 0px inset
+        background: #202020
+        border: 0
+        display: inline-block
+        vertical-align: middle
+        padding: 4px 6px
+        font-size: 14px
+        line-height: 20px
+        -webkit-border-radius: 4px
+        -moz-border-radius: 4px
+        border-radius: 4px
+        width: 100%
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
+        font-weight: normal
+
+    .input-container
+        margin-left: 0
+        margin-right: 0
+
+    .input-container-wrap
+        clear: both
+        margin: 0
+        position: absolute
+        height: 30px
+        bottom: 0
+        left: 0
+        right: 0
+        padding-top: 2px
+        padding-bottom: 6px
+        padding-left: 3px
+        padding-right: 3px
+        background-color: #3A3A3A
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3A3A3A), to(#292929))
+        background-image: -webkit-linear-gradient(#3A3A3A, #292929)
+        background-image: -moz-linear-gradient(top, #3A3A3A, #292929)
+        background-image: -o-linear-gradient(#3A3A3A, #292929)
+        background-image: linear-gradient(#3A3A3A, #292929)
+        background-repeat: no-repeat
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3A3A3A', endColorstr='#ff292929', GradientType=0)
+        border: 1px solid #0C0D0E
+        border-radius: 0 0 2px 2px
+
+    .output-container
+        position: absolute
+        width: 100%
+        color: white
+        p
+            margin: 0 0 0 3px
+            color: white
+            font-size: 14px
+            line-height: 18px

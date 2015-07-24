@@ -32,9 +32,9 @@ module.exports = function(grunt) {
                     //name: '../external/almond',
                     //include: 'fro',
                     wrap: true,
-                    name: 'jquery.frochat',
+                    name: 'frochat',
                     optimize: 'none', // going to do this as a separate task
-                    out: 'dist/jquery.frochat.js'
+                    out: 'dist/frochat.js'
                 }
             }
         },
@@ -45,7 +45,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'dist/js/jquery.frochat.min.js': ['dist/js/jquery.frochat.js']
+                    'dist/js/frochat.min.js': ['dist/js/frochat.js']
                 }
             }
         },
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
                     style: 'expanded' // compressed
                 },
                 files: {
-                    'dist/css/jquery.frochat.css': 'sass/jquery.frochat.sass'
+                    'dist/css/frochat.css': 'sass/frochat.sass'
                 }
             }
         },
@@ -63,7 +63,7 @@ module.exports = function(grunt) {
             scripts: {
                 files: [
                     'Gruntfile.js',
-                    'js/*.js',
+                    'src/*.js',
                 ],
                 tasks: ['jshint']
             },
