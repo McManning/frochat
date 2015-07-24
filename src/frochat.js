@@ -33,13 +33,19 @@ define([
         //wrap(this.element);
 
         this.onKeyDown = this.onKeyDown.bind(this);
-        this.onMouseDown = this.onMouseDown.bind(this);
-        this.onMouseUp = this.onMouseUp.bind(this);
-        this.onMouseMove = this.onMouseMove.bind(this);
 
+        this.onDraggerMouseDown = this.onDraggerMouseDown.bind(this);
+        this.onDraggerMouseUp = this.onDraggerMouseUp.bind(this);
+        this.onDraggerMouseMove = this.onDraggerMouseMove.bind(this);
+
+        this.onResizerMouseDown = this.onResizerMouseDown.bind(this);
+        this.onResizerMouseUp = this.onResizerMouseUp.bind(this);
+        this.onResizerMouseMove = this.onResizerMouseMove.bind(this);
+
+        // Bind event listeners to our various components
         this.el.querySelector('input').addEventListener('keydown', this.onKeyDown);
-        this.el.addEventListener('mousedown', this.onMouseDown);
-        this.el.addEventListener('mouseup', this.onMouseUp);
+        this.el.querySelector('.header').addEventListener('mousedown', this.onDraggerMouseDown);
+        this.el.querySelector('.resizer').addEventListener('mousedown', this.onResizerMouseDown);
     }
 
     Plugin.prototype.append = function(message) {
@@ -62,7 +68,42 @@ define([
         }
     };
 
-    Plugin.prototype.onMouseDown = function(evt) {
+    Plugin.prototype.onResizerMouseDown = function(evt) {
+        evt = evt || window.event;
+
+        this.rx = evt.clientX;
+        this.ry = evt.clientY;
+
+        this.rw = parseInt(document.defaultView.getComputedStyle(this.el).width);
+        this.rh = parseInt(document.defaultView.getComputedStyle(this.el).height);
+
+        document.addEventListener('mousemove', this.onResizerMouseMove, false);
+        document.addEventListener('mouseup', this.onResizerMouseUp, false);
+    };
+
+    Plugin.prototype.onResizerMouseUp = function(evt) {
+        evt = evt || window.event;
+
+        document.removeEventListener('mousemove', this.onResizerMouseMove, false);    
+        document.removeEventListener('mouseup', this.onResizerMouseUp, false);
+    };
+
+    Plugin.prototype.onResizerMouseMove = function(evt) {
+        evt = evt || window.event;
+
+        var w = this.rw + evt.clientX - this.rx,
+            h = this.rh + evt.clientY - this.ry;
+
+        if (w > this.minWidth) {
+            this.el.style.width = w + 'px';
+        }
+
+        if (h > this.minHeight) {
+            this.el.style.height = h + 'px';
+        }
+    };
+
+    Plugin.prototype.onDraggerMouseDown = function(evt) {
         evt = evt || window.event;
 
         var x = evt.clientX,
@@ -77,19 +118,20 @@ define([
 
         container.style.cursor='move';
 
-        document.addEventListener('mousemove', this.onMouseMove);
+        document.addEventListener('mousemove', this.onDraggerMouseMove, false);
+        document.addEventListener('mouseup', this.onDraggerMouseUp, false);
     };
 
-    Plugin.prototype.onMouseUp = function() {
+    Plugin.prototype.onDraggerMouseUp = function() {
         var container = this.el.parentNode;
 
         container.style.cursor = 'default';
 
-        // Remove move listener
-        document.removeEventListener('mousemove', this.onMouseMove);
+        document.removeEventListener('mousemove', this.onDraggerMouseMove, false);    
+        document.removeEventListener('mouseup', this.onDraggerMouseUp, false);
     };
 
-    Plugin.prototype.onMouseMove = function(evt) {
+    Plugin.prototype.onDraggerMouseMove = function(evt) {
         evt = evt || window.event;
 
         var container = this.el.parentNode,
