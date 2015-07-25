@@ -3,6 +3,7 @@ $highlight-color: #673ab7
 $greentext-color: #789922
 $font-family: 'Arial'
 
+
 .frochat
     position: fixed
     width: 400px
@@ -18,6 +19,7 @@ $font-family: 'Arial'
         opacity: 0.75
         padding-bottom: 3.95em // Accounts for borders (meh)
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.2)
+        border-radius: 4px
 
     .header
         margin: 0
@@ -26,12 +28,16 @@ $font-family: 'Arial'
         border-bottom: 1px solid #EEE
         border-top: 1px solid #EEE
         cursor: move
+        border-top-left-radius: 4px
+        border-top-right-radius: 4px
 
     .input-container-wrap
         height: 2.25em
         position: relative
         background-color: #FFF
         border-top: 1px solid #EEE
+        border-bottom-left-radius: 4px
+        border-bottom-right-radius: 4px
 
         .input-container
             padding: 0.5em 1em
@@ -61,6 +67,7 @@ $font-family: 'Arial'
             color: #000
             margin: 0
             line-height: 1.5em
+            padding: 0 0.25em
 
         // Emoji styles, if we have support
         span.emoji
@@ -96,3 +103,39 @@ $font-family: 'Arial'
         height: 14px
         border-top-left-radius: 14px
         background: repeating-linear-gradient( 135deg, transparent, transparent 3px, #CCC 5px, #CCC 1px )
+
+
+    // Dark theme variation on our UI
+    &.dark
+        .background
+            background: #000
+
+        .header
+            background-color: #263237
+            border-color: #37474f
+
+        .input-container-wrap
+            background-color: #263238
+            border-color: #37474f
+
+            input
+                color: #FFF
+                border-color: #607d8b
+
+                &:focus
+                    border-color: #ffab40
+
+        .output-container
+            p
+                color: #FFF
+            span.timestamp
+                color: #CCC
+            span.actor-name
+                color: #ffab40
+            a
+                color: #ffb74d
+                &:hover, &:active
+                    color: #ffcc80
+
+        .resizer
+            background: repeating-linear-gradient( 135deg, transparent, transparent 3px, #90a4ae 5px, #90a4ae 1px )
