@@ -9,7 +9,7 @@ require([
     'frochat'
 ], function(Frochat) {
 
-    var context = {};
+    var context = false;
 
     var chat = new Frochat(context, {
         element: document.getElementById('chatbox'),

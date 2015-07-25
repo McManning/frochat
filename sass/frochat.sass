@@ -1,5 +1,6 @@
 
 $highlight-color: #673ab7
+$greentext-color: #789922
 
 .frochat
     position: fixed
@@ -62,6 +63,12 @@ $highlight-color: #673ab7
 
         span.timestamp
             color: #999
+
+        span.greentext
+            color: $greentext-color
+
+        span.actor-name
+            color: darken($highlight-color, 20%)
 
         a
             color: $highlight-color

@@ -17,9 +17,52 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-define([
+define([], function() {
+
+    /**
+     * Utility method to escape HTML content from strings.
+     *
+     * @param {string} html
+     *
+     * @return {string}
+     */
+    function escapeHtml(html) {
+        var entities = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': '&quot;',
+            "'": '&#39;',
+            "/": '&#x2F;'
+        };
+
+        return String(html).replace(/[&<>"'\/]/g, function (s) {
+            return entities[s];
+        });
+    }
     
-], function() {
+    /**
+     * Performs various filtering of messages for chat.
+     *
+     * Currently, this just converts URLs to clickable links.
+     *
+     * @param {string} message
+     *
+     * @return {string}
+     */
+    function prettifyMessage(message) {
+
+        // I forget where this regex came from, please don't ask...
+        var exp = /(\bhttps?:\&#x2F;\&#x2F;[-A-Z0-9+&@#\&#x2F;%?=~_|!:,.;]*[-A-Z0-9+&@#\&#x2F;%=~_|])/ig;
+        message = message.trim().replace(exp, '<a href="$1" target="_BLANK">$1</a>');
+
+        // Stupid *chan shit
+        if (message.indexOf('&gt;') === 0) {
+            message = '<span class="greentext">' + message + '</span>';
+        }
+
+        return message;
+    }
 
     function timestamp() {
         var date = new Date();
@@ -69,7 +112,29 @@ define([
         this.el.querySelector('input').addEventListener('keydown', this.onKeyDown);
         this.el.querySelector('.header').addEventListener('mousedown', this.onDraggerMouseDown);
         this.el.querySelector('.resizer').addEventListener('mousedown', this.onResizerMouseDown);
+
+        if (context) {
+            context.player.bind('say', this.onPlayerSay);
+        }
     }
+
+    Plugin.prototype.onNewEntity = function(entity) {
+
+        if (entity instanceof Actor) {
+            entity.bind('say', this.onSay);
+        }
+    };
+
+
+
+    Plugin.prototype.onSay = function(data) {
+
+        var message = '<span class="actor-name">' + 
+            escapeHtml(data.entity.name) + '</span>: ' +
+            prettifyMessage(escapeHtml(data.message));
+
+        this.append(message);
+    };
 
     Plugin.prototype.append = function(message) {
         var el = document.createElement('P'),
@@ -94,7 +159,14 @@ define([
         evt = evt || window.event;
 
         if (evt.keyCode === 13 && evt.target.value.length > 0) {
-            this.append(evt.target.value);
+            
+            // filter it locally (for testing)
+            var message = '<span class="actor-name">' + 
+                escapeHtml('Test User') + '</span>: ' +
+                prettifyMessage(escapeHtml(evt.target.value));
+
+            this.append(message);
+
             evt.target.value = '';
         }
     };
