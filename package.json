@@ -1,11 +1,11 @@
 {
-  "name": "jquery-frochat",
+  "name": "frochat",
   "version": "0.1.0",
-  "description": "jQuery chatbox plugin for Frojs",
+  "description": "Interactive chatbox plugin for Frojs",
   "license": "GPL",
   "repository": {
     "type": "git",
-    "url": "git://github.com/McManning/jquery-frochat"
+    "url": "git://github.com/McManning/frochat"
   },
   "contributors": [
     {
