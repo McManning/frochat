@@ -1,2 +1,32 @@
-# jquery-frochat
-jQuery based chatbox to work with Frojs clients
+# frochat
+Interactive chatbox plugin for Frojs. Automatically displays messages from other Actors (including other connected clients) as well as allowing the local player to send messages through the chatbox. 
+
+# Installation
+Include `frochat.css` with your stylesheets, and add `frochat.js` in your scripts file alongside `fro.js`.
+
+In your application's `require` block, where you include `fro`, add `frochat` and create a new instance:
+```javascript
+require([
+  'fro',
+  'frochat'
+], function(fro, Frochat) {
+  
+  var world = new fro.World({ ... });
+  var chat = new Frochat(world);
+});
+```
+
+# Customization
+Frochat supports a number of options for the second configuration parameter (e.g. `new Frochat(world, { ... })`)
+
+* **element** - DOM element to convert into a chatbox (will create a new one if null)
+ * default: null
+* **placeholder** - Placeholder text for the chatbox input
+ * default: empty string
+* **minWidth** - minimum width (in pixels) of the chatbox when resizing
+ * default: 200
+* **minHeight** - minimum height (in pixels) of the chatbox when resizing
+ * default: 100
+* **maxHistory** - maximum messages to retain the chatbox. Lower values perform better
+ * default: 100 
+
