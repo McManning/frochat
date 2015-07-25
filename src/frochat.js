@@ -17,7 +17,8 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-define([], function() {
+define(['fro'], function(fro) {
+    var Actor = fro.entities.Actor;
 
     /**
      * Utility method to escape HTML content from strings.
@@ -84,7 +85,7 @@ define([], function() {
      * undefined when moving over selected text.
      */
     function clearSelection() {
-        if ( document.selection ) {
+        if (document.selection) {
             document.selection.empty();
         } else if ( window.getSelection ) {
             window.getSelection().removeAllRanges();
@@ -101,7 +102,7 @@ define([], function() {
         this.placeholder = options.placeholder || '';
         this.maxHistory = options.maxHistory || 100;
         this.useEmojis = options.useEmojis || true; // hell yes this is enabled
-        
+
         //wrap(this.element);
 
         this.onKeyDown = this.onKeyDown.bind(this);
@@ -119,11 +120,19 @@ define([], function() {
         this.el.querySelector('.header').addEventListener('mousedown', this.onDraggerMouseDown);
         this.el.querySelector('.resizer').addEventListener('mousedown', this.onResizerMouseDown);
 
-        if (context) {
-            context.player.bind('say', this.onPlayerSay);
+        this.onNewEntity = this.onNewEntity.bind(this);
+        this.onSay = this.onSay.bind(this);
+
+        // Bind to listen for all new actors
+        context.bind('add.entity', this.onNewEntity);
+
+        // Also load for all existing actors
+        for (var i = 0; i < context.renderableEntities.length; i++) {
+            this.onNewEntity(context.renderableEntities[i]);
         }
 
-        // If emoji's are enabled and emojify is included, configure and use
+        // If emoji's are enabled and emojify has been specified
+        // as a requirejs package, configure and use
         if (this.useEmojis) {
             if (require.specified('emojify')) {
 
@@ -186,14 +195,9 @@ define([], function() {
         evt = evt || window.event;
 
         if (evt.keyCode === 13 && evt.target.value.length > 0) {
-            
-            // filter it locally (for testing)
-            var message = '<span class="actor-name">' + 
-                escapeHtml('Test User') + '</span>: ' +
-                prettifyMessage(escapeHtml(evt.target.value));
 
-            this.append(message);
-
+            // Send our message to our Player entity
+            this.context.player.say(evt.target.value);
             evt.target.value = '';
         }
     };
@@ -294,6 +298,6 @@ define([], function() {
         this.el.style.top = y + 'px';
     };
 
-    //fro.plugins.Frochat = Plugin;
+    fro.plugins.Frochat = Plugin;
     return Plugin;
 });
