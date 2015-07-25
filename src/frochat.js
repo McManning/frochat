@@ -64,6 +64,11 @@ define([], function() {
         return message;
     }
 
+    /**
+     * Generates an HH:MM:SS timestamp of the current time.
+     * 
+     * @return {string}
+     */
     function timestamp() {
         var date = new Date();
         var hour = date.getHours();
@@ -95,7 +100,8 @@ define([], function() {
         this.minHeight = options.minHeight || 100;
         this.placeholder = options.placeholder || '';
         this.maxHistory = options.maxHistory || 100;
-
+        this.useEmojis = options.useEmojis || true; // hell yes this is enabled
+        
         //wrap(this.element);
 
         this.onKeyDown = this.onKeyDown.bind(this);
@@ -116,6 +122,24 @@ define([], function() {
         if (context) {
             context.player.bind('say', this.onPlayerSay);
         }
+
+        // If emoji's are enabled and emojify is included, configure and use
+        if (this.useEmojis) {
+            if (require.specified('emojify')) {
+
+                var self = this;
+                require(['emojify'], function(emojify) {
+                    emojify.setConfig({
+                        emojify_tag_type : 'span'
+                    });
+                    self.emojify = emojify;
+                });
+
+            } else {
+                // No emojify support
+                this.useEmojis = false;
+            }
+        }
     }
 
     Plugin.prototype.onNewEntity = function(entity) {
@@ -124,8 +148,6 @@ define([], function() {
             entity.bind('say', this.onSay);
         }
     };
-
-
 
     Plugin.prototype.onSay = function(data) {
 
@@ -152,6 +174,11 @@ define([], function() {
         var lines = output.querySelectorAll('p');
         if (lines.length > this.maxHistory) {
             output.removeChild(lines[0]);
+        }
+
+        // If emoji's are enabled, post-process those 
+        if (this.useEmojis) {
+            this.emojify.run(el);
         }
     };
 
@@ -193,6 +220,12 @@ define([], function() {
 
     Plugin.prototype.onResizerMouseMove = function(evt) {
         evt = evt || window.event;
+
+        // TODO: Don't constantly call this on mousemove. 
+        // Issue is that if we drag into a selectable area by moving faster
+        // than update speed, we get odd behavior due to selecting. Basically
+        // need to stop selecting while dragging. 
+        clearSelection();
 
         var w = this.rw + evt.clientX - this.rx,
             h = this.rh + evt.clientY - this.ry;
@@ -237,6 +270,12 @@ define([], function() {
 
     Plugin.prototype.onDraggerMouseMove = function(evt) {
         evt = evt || window.event;
+
+        // TODO: Don't constantly call this on mousemove. 
+        // Issue is that if we drag into a selectable area by moving faster
+        // than update speed, we get odd behavior due to selecting. Basically
+        // need to stop selecting while dragging. 
+        clearSelection();
 
         var container = this.el.parentNode,
             x = evt.clientX - this.dx,

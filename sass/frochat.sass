@@ -1,12 +1,13 @@
 
 $highlight-color: #673ab7
 $greentext-color: #789922
+$font-family: 'Arial'
 
 .frochat
     position: fixed
     width: 400px
     height: 200px
-    font-family: Arial
+    font-family: $font-family
 
     .background
         position: absolute
@@ -59,7 +60,15 @@ $greentext-color: #789922
         p
             color: #000
             margin: 0
-            padding: 0.25em
+            line-height: 1.5em
+
+        // Emoji styles, if we have support
+        span.emoji
+            height: 1.5em
+            width: 1.5em
+            display: inline-block
+            background-size: contain
+            vertical-align: bottom
 
         span.timestamp
             color: #999

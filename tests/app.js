@@ -1,13 +1,19 @@
 
 requirejs.config({
     paths: {
-        'frochat': '../src/frochat' //'../dist/frochat'
+        'frochat': '../src/frochat', //'../dist/frochat',
+        'emojify': '../src/vendor/emojify.min' // https://cdnjs.cloudflare.com/ajax/libs/emojify.js/0.9.5/emojify.min.js
     }
 });
 
 require([
-    'frochat'
-], function(Frochat) {
+    'frochat',
+    'emojify'
+], function(Frochat, emojify) {
+
+    // For Emojify information:
+    // https://github.com/Ranks/emojify.js
+    // http://www.emoji-cheat-sheet.com/
 
     var context = false;
 
@@ -18,6 +24,5 @@ require([
         minHeight: 100, // Minimum dimensions when resizing
         maxHistory: 10
     });
-
 
 });
