@@ -15,7 +15,8 @@ require([
         element: document.getElementById('chatbox'),
         placeholder: 'Tab to start typing ...', // Input placeholder
         minWidth: 200, // Minimum dimensions when resizing
-        minHeight: 100 // Minimum dimensions when resizing
+        minHeight: 100, // Minimum dimensions when resizing
+        maxHistory: 10
     });
 
 

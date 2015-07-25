@@ -21,6 +21,15 @@ define([
     
 ], function() {
 
+    function timestamp() {
+        var date = new Date();
+        var hour = date.getHours();
+        var min = ('00' + date.getMinutes()).slice(-2);
+        var sec = ('00' + date.getSeconds()).slice(-2);
+        
+        return hour + ":" + min + ":" + sec;
+    }
+    
     function Plugin(context, options) {
         this.context = context;
         this.options = options;
@@ -29,6 +38,7 @@ define([
         this.minWidth = options.minWidth || 200;
         this.minHeight = options.minHeight || 100;
         this.placeholder = options.placeholder || '';
+        this.maxHistory = options.maxHistory || 100;
 
         //wrap(this.element);
 
@@ -52,17 +62,25 @@ define([
         var el = document.createElement('P'),
             output = this.el.querySelector('.output-container');
 
-        el.innerHTML = message;
+        var now = timestamp();
+
+        el.innerHTML = '<span class="timestamp">' + now + '</span> ' + message;
 
         // Append and scroll the div to the bottom
         output.appendChild(el);
         output.scrollTop = output.scrollHeight;
+
+        // If we have too many messages, delete the oldest
+        var lines = output.querySelectorAll('p');
+        if (lines.length > this.maxHistory) {
+            output.removeChild(lines[0]);
+        }
     };
 
     Plugin.prototype.onKeyDown = function(evt) {
         evt = evt || window.event;
 
-        if (evt.keyCode === 13) {
+        if (evt.keyCode === 13 && evt.target.value.length > 0) {
             this.append(evt.target.value);
             evt.target.value = '';
         }
