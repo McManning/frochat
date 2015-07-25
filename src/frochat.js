@@ -29,12 +29,25 @@ define([
         
         return hour + ":" + min + ":" + sec;
     }
+
+    /**
+     * Utility method to clear selected text. 
+     * Resolves the issue of draggable behavior being 
+     * undefined when moving over selected text.
+     */
+    function clearSelection() {
+        if ( document.selection ) {
+            document.selection.empty();
+        } else if ( window.getSelection ) {
+            window.getSelection().removeAllRanges();
+        }
+    }
     
     function Plugin(context, options) {
         this.context = context;
-        this.options = options;
+        this.options = options || {};
 
-        this.el = options.element;
+        this.el = options.element || null;
         this.minWidth = options.minWidth || 200;
         this.minHeight = options.minHeight || 100;
         this.placeholder = options.placeholder || '';
@@ -136,6 +149,7 @@ define([
 
         container.style.cursor='move';
 
+        clearSelection();
         document.addEventListener('mousemove', this.onDraggerMouseMove, false);
         document.addEventListener('mouseup', this.onDraggerMouseUp, false);
     };
