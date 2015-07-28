@@ -103,6 +103,7 @@ define(['fro'], function(fro) {
         this.maxHistory = options.maxHistory || 100;
         this.maxMessageLength = options.maxMessageLength || 140;
         this.useEmojis = options.useEmojis || true; // hell yes this is enabled
+        this.useDarkTheme = options.useDarkTheme || false; // Alt theme
 
         if (!this.el) {
             this.el = document.createElement('div');
@@ -160,6 +161,10 @@ define(['fro'], function(fro) {
     Plugin.prototype.wrap = function(el) {
 
         this.el.className += ' frochat';
+
+        if (this.useDarkTheme) {
+            this.el.className += ' dark';
+        }
 
         this.el.innerHTML = 
             '<div class="background"></div>' +
