@@ -101,9 +101,15 @@ define(['fro'], function(fro) {
         this.minHeight = options.minHeight || 100;
         this.placeholder = options.placeholder || '';
         this.maxHistory = options.maxHistory || 100;
+        this.maxMessageLength = options.maxMessageLength || 140;
         this.useEmojis = options.useEmojis || true; // hell yes this is enabled
 
-        //wrap(this.element);
+        if (!this.el) {
+            this.el = document.createElement('div');
+            document.body.appendChild(this.el);
+        }
+
+        this.wrap();
 
         this.onKeyDown = this.onKeyDown.bind(this);
 
@@ -150,6 +156,23 @@ define(['fro'], function(fro) {
             }
         }
     }
+
+    Plugin.prototype.wrap = function(el) {
+
+        this.el.className += ' frochat';
+
+        this.el.innerHTML = 
+            '<div class="background"></div>' +
+            '<div class="header"></div>' +
+            '<div class="output-container"></div>' +
+            '<div class="input-container-wrap">' +
+            '    <div class="input-container">' +
+            '        <input type="text" placeholder="' + this.placeholder + '"' +
+            '               maxlength="' + this.maxMessageLength + '" />' +
+            '    </div>' +
+            '    <div class="resizer"></div>' +
+            '</div>';
+    };
 
     Plugin.prototype.onNewEntity = function(entity) {
 
