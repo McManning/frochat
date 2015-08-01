@@ -160,7 +160,7 @@ define(['fro'], function(fro) {
 
     Plugin.prototype.wrap = function(el) {
 
-        this.el.className += ' frochat';
+        this.el.className += ' frojs-chat';
 
         if (this.useDarkTheme) {
             this.el.className += ' dark';

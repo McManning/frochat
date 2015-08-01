@@ -32,9 +32,9 @@ module.exports = function(grunt) {
                     //name: '../external/almond',
                     //include: 'fro',
                     wrap: true,
-                    name: 'frochat',
+                    name: 'chat',
                     optimize: 'none', // going to do this as a separate task
-                    out: 'dist/frochat.js'
+                    out: 'dist/js/frojs.chat.js'
                 }
             }
         },
@@ -45,7 +45,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'dist/js/frochat.min.js': ['dist/js/frochat.js']
+                    'dist/js/frojs.chat.min.js': ['dist/js/frojs.chat.js']
                 }
             }
         },
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
                     style: 'expanded' // compressed
                 },
                 files: {
-                    'dist/css/frochat.css': 'sass/frochat.sass'
+                    'dist/css/frojs.chat.css': 'sass/frojs.chat.sass'
                 }
             }
         },

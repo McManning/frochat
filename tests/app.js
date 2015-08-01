@@ -2,14 +2,14 @@
 requirejs.config({
     paths: {
         'fro': '../../frojs/dist/fro',
-        'frochat': '../src/frochat', //'../dist/frochat',
+        'frojs.chat': '../src/frojs.chat', //'../dist/frojs.chat',
         'emojify': '../src/vendor/emojify.min' // https://cdnjs.cloudflare.com/ajax/libs/emojify.js/0.9.5/emojify.min.js
     }
 });
 
 require([
     'fro',
-    'frochat',
+    'frojs.chat',
     'emojify'
 ], function(fro, Frochat, emojify) {
 

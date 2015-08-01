@@ -1,11 +1,11 @@
 {
-  "name": "frochat",
+  "name": "frojs-chat",
   "version": "0.1.0",
   "description": "Interactive chatbox plugin for Frojs",
   "license": "GPL",
   "repository": {
     "type": "git",
-    "url": "git://github.com/McManning/frochat"
+    "url": "git://github.com/McManning/frojs-chat"
   },
   "contributors": [
     {
