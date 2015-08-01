@@ -21,12 +21,12 @@ require([
     },
     // Other world setup here
   });
-  
+
 });
 ```
 
 # Customization
-Chat supports a number of options for the second configuration parameter (e.g. `new Chat(world, { ... })`)
+Chat supports a number of options for the configuration object:
 
 * **element** - DOM element to convert into a chatbox (will create a new one if null)
  * default: null
