@@ -9,15 +9,24 @@ In your application's `require` block, where you include `fro`, add `frojs.chat`
 require([
   'fro',
   'frojs.chat'
-], function(fro, Frochat) {
+], function(fro, Chat) {
   
-  var world = new fro.World({ ... });
-  var chat = new Frochat(world);
+  var world = new fro.World({
+    plugins: {
+      // Configuration for the Chat plugin
+      Chat: {
+          // Chat plugin setup here (see Configuration below)
+      }
+      // Additional plugins here
+    },
+    // Other world setup here
+  });
+  
 });
 ```
 
 # Customization
-Chat supports a number of options for the second configuration parameter (e.g. `new Frochat(world, { ... })`)
+Chat supports a number of options for the second configuration parameter (e.g. `new Chat(world, { ... })`)
 
 * **element** - DOM element to convert into a chatbox (will create a new one if null)
  * default: null

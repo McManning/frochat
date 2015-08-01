@@ -11,7 +11,7 @@ require([
     'fro',
     'frojs.chat',
     'emojify'
-], function(fro, Frochat, emojify) {
+], function(fro, Chat, emojify) {
 
     // For Emojify information:
     // https://github.com/Ranks/emojify.js
@@ -19,8 +19,8 @@ require([
 
     var context = new fro.World({
         plugins: {
-            // This is the part that matters: Configuration for the Frochat plugin.
-            Frochat: {
+            // This is the part that matters: Configuration for the Chat plugin.
+            Chat: {
                 element: document.getElementById('chatbox'),
                 placeholder: 'Tab to start typing ...', // Input placeholder
                 minWidth: 200, // Minimum dimensions when resizing

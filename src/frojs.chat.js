@@ -326,6 +326,6 @@ define(['fro'], function(fro) {
         this.el.style.top = y + 'px';
     };
 
-    fro.plugins.Frochat = Plugin;
+    fro.plugins.Chat = Plugin;
     return Plugin;
 });
