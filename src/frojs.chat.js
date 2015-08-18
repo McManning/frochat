@@ -167,7 +167,6 @@ define(['fro'], function(fro) {
         }
 
         this.el.innerHTML = 
-            '<div class="background"></div>' +
             '<div class="header"></div>' +
             '<div class="output-container"></div>' +
             '<div class="input-container-wrap">' +

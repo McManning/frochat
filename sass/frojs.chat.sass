@@ -11,17 +11,6 @@ $font-family: 'Arial'
     height: 200px
     font-family: $font-family
 
-    .background
-        position: absolute
-        z-index: -1
-        width: 100%
-        height: 100%
-        background: #FFF
-        opacity: 0.75
-        padding-bottom: 3.95em // Accounts for borders (meh)
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.2)
-        border-radius: 4px
-
     .header
         margin: 0
         height: 1.5em
@@ -31,6 +20,7 @@ $font-family: 'Arial'
         cursor: move
         border-top-left-radius: 4px
         border-top-right-radius: 4px
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.2)
 
     .input-container-wrap
         height: 2.25em
@@ -39,6 +29,7 @@ $font-family: 'Arial'
         border-top: 1px solid #EEE
         border-bottom-left-radius: 4px
         border-bottom-right-radius: 4px
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.2)
 
         .input-container
             padding: 0.5em 1em
@@ -54,6 +45,7 @@ $font-family: 'Arial'
             border: none
             border-bottom: 1px solid #CCC
             transition: all .3s
+            height: 1.25em
 
             &:focus
                 border-bottom: 2px solid lighten($highlight-color, 30%)
@@ -63,6 +55,7 @@ $font-family: 'Arial'
         height: 100%
         overflow-y: scroll
         overflow-x: hidden
+        background-color: rgba(255, 255, 255, 0.3)
 
         p
             color: #000
@@ -108,9 +101,6 @@ $font-family: 'Arial'
 
     // Dark theme variation on our UI
     &.dark
-        .background
-            background: #000
-
         .header
             background-color: #263237
             border-color: #37474f
@@ -127,6 +117,8 @@ $font-family: 'Arial'
                     border-color: #ffab40
 
         .output-container
+            background-color: rgba(0, 0, 0, 0.5)
+
             p
                 color: #FFF
             span.timestamp
