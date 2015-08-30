@@ -55,7 +55,7 @@ define(['fro'], function(fro) {
 
         // I forget where this regex came from, please don't ask...
         var exp = /(\bhttps?:\&#x2F;\&#x2F;[-A-Z0-9+&@#\&#x2F;%?=~_|!:,.;]*[-A-Z0-9+&@#\&#x2F;%=~_|])/ig;
-        message = message.trim().replace(exp, '<a href="$1" target="_BLANK">$1</a>');
+        message = message.trim().replace(exp, '<a href="$1" target="_blank">$1</a>');
 
         // Stupid *chan shit
         if (message.indexOf('&gt;') === 0) {
